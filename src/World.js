@@ -91,11 +91,24 @@ class World {
     );
   }
 
+  getEntityAtLocation(x, y) {
+    const thisWorld = this;
+    return thisWorld.entities.find(
+      (entity) => entity.x === x && entity.y === y
+    );
+  }
+
   movePlayer(dx, dy) {
     //creat a temp player
     let tempPlayer = this.player.copyPlayer();
     // check if temp player is not in wal if not move actual player
     tempPlayer.move(dx, dy);
+    let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
+
+    if (entity) {
+      console.log(entity);
+      entity.action('bump', this);
+    }
     if (this.isWall(tempPlayer.x, tempPlayer.y)) {
       console.log('wall');
     } else {
