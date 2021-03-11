@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import InputManager from './InputManager';
@@ -79,11 +79,18 @@ const Game = ({ width, height, tilesize }) => {
   });
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={width * tilesize}
-      height={height * tilesize}
-      style={{ border: '1px solid black', background: 'grey' }}></canvas>
+    <Fragment>
+      <canvas
+        ref={canvasRef}
+        width={width * tilesize}
+        height={height * tilesize}
+        style={{ border: '1px solid black', background: 'grey' }}></canvas>
+      <ul>
+        {world.player.inventory.map((item, index) => (
+          <li key={index}>{item.attributes}</li>
+        ))}
+      </ul>
+    </Fragment>
   );
 };
 

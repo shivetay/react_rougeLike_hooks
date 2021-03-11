@@ -66,6 +66,13 @@ class World {
     thisWorld.entities.push(entity);
   }
 
+  remove(entity) {
+    const thisWorld = this;
+    thisWorld.entity = entity;
+    thisWorld.entities = thisWorld.entities.filter(
+      (e) => e !== thisWorld.entity
+    );
+  }
   moveToSpace(entity) {
     const thisWorld = this;
 

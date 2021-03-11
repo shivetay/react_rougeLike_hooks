@@ -8,13 +8,13 @@ class Player extends Entity {
   //   thisPlayer.y = y;
   //   thisPlayer.size = size;
   // }
+  inventory = [];
 
   attributes = {
     name: 'Player',
     ascii: '@',
     health: 10,
-    color: 'red',
-    offset: { x: 2, y: 2 },
+    // color: 'red',
   };
 
   move(dx, dy) {
@@ -22,6 +22,14 @@ class Player extends Entity {
 
     thisPlayer.x += dx;
     thisPlayer.y += dy;
+  }
+
+  add(item) {
+    const thisPlayer = this;
+    thisPlayer.inventory = this.inventory;
+    thisPlayer.item = item;
+
+    thisPlayer.inventory.push(thisPlayer.item);
   }
 
   /* this draw player based on widt and tile size will move one tile siez*/
