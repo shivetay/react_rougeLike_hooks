@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Game from './Game';
-import World from './World';
 
 const App = () => (
   <div className='App'>

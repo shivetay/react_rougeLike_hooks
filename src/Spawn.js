@@ -30,8 +30,8 @@ class Sapwn {
     thisSpawn.spawnCount = spawnCount;
     this.spawn(thisSpawn.spawnCount, () => {
       return new Loot(
-        getRandomInt(thisSpawn.world.width),
-        getRandomInt(thisSpawn.world.height),
+        getRandomInt(thisSpawn.world.width - 1),
+        getRandomInt(thisSpawn.world.height - 1),
         thisSpawn.world.tilesize,
         lootTable[getRandomInt(lootTable.length)]
       );
