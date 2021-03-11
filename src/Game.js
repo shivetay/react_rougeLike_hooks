@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import InputManager from './InputManager';
-import Player from './Player';
+// import Player from './Player';
 import World from './World';
 
 const Game = ({ width, height, tilesize }) => {
@@ -11,16 +11,17 @@ const Game = ({ width, height, tilesize }) => {
   /* hardoceded player display */
   // const [player, setPlayer] = useState({ x: 20, y: 28 });
 
-  const [player, setPlayer] = useState(new Player(1, 2, tilesize));
+  // const [player, setPlayer] = useState(new Player(1, 2, tilesize));
+
   const [world, setWorld] = useState(new World(width, height, tilesize));
 
   let inputManager = new InputManager();
 
   /* moving player */
   const handleInput = (action, data) => {
-    let newPlayer = new Player();
-    Object.assign(newPlayer, player);
-    newPlayer.move(data.x, data.y);
+    let newWorld = new World();
+    Object.assign(newWorld, world);
+    newWorld.movePlayer(data.x, data.y);
 
     /*hardcode player draw
     code moved to Player.js
@@ -31,8 +32,21 @@ const Game = ({ width, height, tilesize }) => {
     // newPlayer.x += data.x * tilesize;
     // newPlayer.y += data.y * tilesize;
 
-    setPlayer(newPlayer);
+    setWorld(newWorld);
   };
+
+  /* draw map onec afdter load */
+  useEffect(() => {
+    let newWorld = new World();
+    Object.assign(newWorld, world);
+    newWorld.createCellularMap();
+    newWorld.moveToSpace(world.player);
+    setWorld(newWorld);
+
+    console.log('Canvas wisible');
+    console.log('Use Arrows to move');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /* draw use effect */
   useEffect(() => {
@@ -47,16 +61,13 @@ const Game = ({ width, height, tilesize }) => {
     // from useEffect player.x and y will render new position of player
     context.fillRect(player.x, player.y, 20, 20);
     */
-    player.draw(context);
-    console.log('Canvas wisible');
+    // player.draw(context);
   });
 
   /* key binding useEffect */
   useEffect(() => {
     inputManager.bindKeys();
     inputManager.subscribe(handleInput);
-
-    console.log('Use Arrows to move');
 
     return () => {
       inputManager.unbindKeys();

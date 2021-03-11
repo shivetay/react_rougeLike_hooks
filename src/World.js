@@ -1,4 +1,5 @@
 import { Map } from 'rot-js';
+import Player from './Player';
 
 class World {
   constructor(width, height, tilesize) {
@@ -6,6 +7,7 @@ class World {
     thisWorld.width = width;
     thisWorld.height = height;
     thisWorld.tilesize = tilesize;
+    thisWorld.entities = [new Player(0, 0, 16)];
     thisWorld.worldmap = new Array(thisWorld.width);
 
     // 2d array for world tiles
@@ -13,7 +15,7 @@ class World {
       thisWorld.worldmap[x] = new Array(thisWorld.height);
     }
 
-    thisWorld.createCellularMap();
+    // thisWorld.createCellularMap();
     // thisWorld.createRandomMap();
   }
 
@@ -52,6 +54,49 @@ class World {
     }
   }
 
+  get player() {
+    const thisWorld = this;
+
+    return thisWorld.entities[0];
+  }
+
+  moveToSpace(entity) {
+    const thisWorld = this;
+
+    thisWorld.entity = entity;
+
+    for (let x = thisWorld.entity.x; x < thisWorld.width; x++) {
+      for (let y = thisWorld.entity.y; y < thisWorld.height; y++) {
+        if (thisWorld.worldmap[x][y] === 0) {
+          thisWorld.entity.y = y;
+          thisWorld.entity.x = x;
+          return;
+        }
+      }
+    }
+  }
+
+  isWall(x, y) {
+    const thisWorld = this;
+    return (
+      thisWorld.worldmap[x] === undefined ||
+      thisWorld.worldmap[y] === undefined ||
+      thisWorld.worldmap[x][y] === 1
+    );
+  }
+
+  movePlayer(dx, dy) {
+    //creat a temp player
+    let tempPlayer = this.player.copyPlayer();
+    // check if temp player is not in wal if not move actual player
+    tempPlayer.move(dx, dy);
+    if (this.isWall(tempPlayer.x, tempPlayer.y)) {
+      console.log('wall');
+    } else {
+      this.player.move(dx, dy);
+    }
+  }
+
   draw(context) {
     const thisWorld = this;
 
@@ -65,6 +110,9 @@ class World {
         }
       }
     }
+    thisWorld.entities.forEach((entity) => {
+      entity.draw(context);
+    });
   }
 
   drawWall(context, x, y) {

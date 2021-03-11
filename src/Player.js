@@ -29,6 +29,14 @@ class Player {
       thisPlayer.y * thisPlayer.size
     );
   }
+
+  /* wall colision */
+  copyPlayer() {
+    // copy of our player will hceck if there is a wall or not
+    let newPlayer = new Player();
+    Object.assign(newPlayer, this);
+    return newPlayer;
+  }
 }
 
 export default Player;
