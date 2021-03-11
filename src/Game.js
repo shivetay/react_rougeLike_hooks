@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import InputManager from './InputManager';
 // import Player from './Player';
 import World from './World';
+import Sapwn from './Spawn';
 
 const Game = ({ width, height, tilesize }) => {
   const canvasRef = useRef();
@@ -43,6 +44,8 @@ const Game = ({ width, height, tilesize }) => {
     newWorld.moveToSpace(world.player);
     setWorld(newWorld);
 
+    let sapwn = new Sapwn(newWorld);
+    sapwn.spawnLoot(10);
     console.log('Canvas wisible');
     console.log('Use Arrows to move');
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,7 +83,7 @@ const Game = ({ width, height, tilesize }) => {
       ref={canvasRef}
       width={width * tilesize}
       height={height * tilesize}
-      style={{ border: '1px solid black' }}></canvas>
+      style={{ border: '1px solid black', background: 'grey' }}></canvas>
   );
 };
 

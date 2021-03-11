@@ -7,7 +7,7 @@ class World {
     thisWorld.width = width;
     thisWorld.height = height;
     thisWorld.tilesize = tilesize;
-    thisWorld.entities = [new Player(0, 0, 16)];
+    thisWorld.entities = [new Player(0, 0, 16)]; // this will keep player monsters and all we wnat to be in our world
     thisWorld.worldmap = new Array(thisWorld.width);
 
     // 2d array for world tiles
@@ -58,6 +58,12 @@ class World {
     const thisWorld = this;
 
     return thisWorld.entities[0];
+  }
+
+  add(entity) {
+    const thisWorld = this;
+
+    thisWorld.entities.push(entity);
   }
 
   moveToSpace(entity) {

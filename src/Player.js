@@ -1,11 +1,21 @@
-class Player {
-  constructor(x, y, size) {
-    const thisPlayer = this;
+import Entity from './Entities';
 
-    thisPlayer.x = x;
-    thisPlayer.y = y;
-    thisPlayer.size = size;
-  }
+class Player extends Entity {
+  // constructor(x, y, size) {
+  //   const thisPlayer = this;
+
+  //   thisPlayer.x = x;
+  //   thisPlayer.y = y;
+  //   thisPlayer.size = size;
+  // }
+
+  attributes = {
+    name: 'Player',
+    ascii: '@',
+    health: 10,
+    color: 'red',
+    offset: { x: 2, y: 2 },
+  };
 
   move(dx, dy) {
     const thisPlayer = this;
@@ -15,20 +25,20 @@ class Player {
   }
 
   /* this draw player based on widt and tile size will move one tile siez*/
-  draw(context) {
-    const thisPlayer = this;
+  // draw(context) {
+  //   const thisPlayer = this;
 
-    thisPlayer.context = context;
+  //   thisPlayer.context = context;
 
-    context.fillStyle = 'red';
-    context.textBaseline = 'hanging';
-    context.font = '16px Helvetica';
-    context.fillText(
-      '@',
-      thisPlayer.x * thisPlayer.size,
-      thisPlayer.y * thisPlayer.size
-    );
-  }
+  //   context.fillStyle = 'red';
+  //   context.textBaseline = 'hanging';
+  //   context.font = '16px Helvetica';
+  //   context.fillText(
+  //     '@',
+  //     thisPlayer.x * thisPlayer.size,
+  //     thisPlayer.y * thisPlayer.size
+  //   );
+  // }
 
   /* wall colision */
   copyPlayer() {
