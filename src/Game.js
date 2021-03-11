@@ -11,7 +11,7 @@ const Game = ({ width, height, tilesize }) => {
   /* hardoceded player display */
   // const [player, setPlayer] = useState({ x: 20, y: 28 });
 
-  const [player, setPlayer] = useState(new Player(150, 150, tilesize));
+  const [player, setPlayer] = useState(new Player(1, 2, tilesize));
   const [world, setWorld] = useState(new World(width, height, tilesize));
 
   let inputManager = new InputManager();

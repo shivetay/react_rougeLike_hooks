@@ -27,6 +27,7 @@ class World {
 
   draw(context) {
     const thisWorld = this;
+
     thisWorld.context = context;
 
     //draw methid will got through arra for 1 will draw bolck

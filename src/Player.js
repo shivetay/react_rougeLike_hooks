@@ -14,6 +14,7 @@ class Player {
     thisPlayer.y += dy;
   }
 
+  /* this draw player based on widt and tile size will move one tile siez*/
   draw(context) {
     const thisPlayer = this;
 
@@ -22,12 +23,10 @@ class Player {
     context.fillStyle = 'red';
     context.textBaseline = 'hanging';
     context.font = '16px Helvetica';
-    context.fillText('@', thisPlayer.x, thisPlayer.y, thisPlayer.size);
-    console.log(
-      context.fillText('@', thisPlayer.x, thisPlayer.y, thisPlayer.size),
-      thisPlayer.x,
-      thisPlayer.size,
-      thisPlayer.context
+    context.fillText(
+      '@',
+      thisPlayer.x * thisPlayer.size,
+      thisPlayer.y * thisPlayer.size
     );
   }
 }
