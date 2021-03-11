@@ -1,3 +1,5 @@
+import { Map } from 'rot-js';
+
 class World {
   constructor(width, height, tilesize) {
     const thisWorld = this;
@@ -11,7 +13,32 @@ class World {
       thisWorld.worldmap[x] = new Array(thisWorld.height);
     }
 
-    thisWorld.createRandomMap();
+    thisWorld.createCellularMap();
+    // thisWorld.createRandomMap();
+  }
+
+  /* rot-js map generator */
+  createCellularMap() {
+    const thisWorld = this;
+    const map = new Map.Cellular(thisWorld.width, thisWorld.height, {
+      connected: true,
+    });
+    map.randomize(0.5);
+
+    const userCallback = (x, y, value) => {
+      if (
+        x === 0 ||
+        y === 0 ||
+        x === thisWorld.width - 1 ||
+        y === thisWorld.height - 1
+      ) {
+        thisWorld.worldmap[x][y] = 1; // create wall around all world
+        return;
+      }
+      thisWorld.worldmap[x][y] = value === 0 ? 1 : 0;
+    };
+    map.create(userCallback);
+    map.connect(userCallback, 1);
   }
 
   /* random map creator */
